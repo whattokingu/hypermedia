@@ -1,0 +1,38 @@
+.site{
+  margin: 2rem;
+  padding: 1rem;
+  border: 1px solid #dedede;
+  .api{
+    .desc-header{
+      font-weight: bold;
+    }
+  }
+  .authors{
+    .author{
+      margin-bottom: 3rem;
+      cursor: pointer;
+    }
+  }
+  .author{
+    .author-img{
+      height: auto;
+    }
+    .key{
+      font-weight: bold;
+      margin-top:1rem;
+    }
+  }
+  .nav-bar{
+    .links {
+      display:flex;
+      flex-direction:row;
+      justify-content: flex-start;
+      .btn{
+        &:not(:first-child){
+          margin-left: 0.5rem;
+        }
+        width: 100px;
+      }
+    }
+  }
+}

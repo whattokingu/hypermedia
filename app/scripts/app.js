@@ -1,45 +1,49 @@
 
 var React = window.React = require('react'),
     ReactDOM = require("react-dom"),
-    Timer = require("./ui/Timer"),
     mountNode = document.getElementById("app");
 
-var TodoList = React.createClass({
-  render: function() {
-    var createItem = function(itemText) {
-      return <li>{itemText}</li>;
-    };
-    return <ul>{this.props.items.map(createItem)}</ul>;
-  }
-});
-var TodoApp = React.createClass({
-  getInitialState: function() {
-    return {items: [], text: ''};
-  },
-  onChange: function(e) {
-    this.setState({text: e.target.value});
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var nextItems = this.state.items.concat([this.state.text]);
-    var nextText = '';
-    this.setState({items: nextItems, text: nextText});
-  },
+var reflux = require('reflux');
+var StateMixin = require('reflux-state-mixin')(reflux);
+import History from './history.js';
+import Json from './json.js';
+import Links from './Links.js';
+import Site from './Site.js';
+import AppStore from './AppStore';
+import actions from './AppActions';
+
+
+var App = React.createClass({
+  mixins:[StateMixin.connect(AppStore)],
   render: function() {
     return (
-      <div>
-        <h3>TODO</h3>
-        <TodoList items={this.state.items} />
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.onChange} value={this.state.text} />
-          <button>{'Add #' + (this.state.items.length + 1)}</button>
-        </form>
-        <Timer />
+
+    <div className='container'>
+      <div className="start btncol-md-12">
+        <div className="btn btn-default" onClick={this.handleStartClick}>
+          {this.state && this.state.initialised ? 'RESTART (GET "/api")' : 'START (GET "/api")'}
+        </div>
       </div>
+      <div className="col-md-4">
+          <History/>
+          <Links/>
+      </div>
+      <div className="col-md-8">
+        <Json/>
+      </div>
+      <div className="site col-md-12">
+        <h1>Site</h1>
+        <hr/>
+        <Site/>
+      </div>
+    </div>
     );
+  },
+  handleStartClick: function(){
+    actions.onStartClick();
   }
 });
 
 
-ReactDOM.render(<TodoApp />, mountNode);
+ReactDOM.render(<App />, mountNode);
 
