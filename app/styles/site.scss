@@ -1,3 +1,5 @@
+$clr-blue: #0000de;
+
 .site{
   margin: 2rem;
   padding: 1rem;
@@ -20,6 +22,40 @@
     .key{
       font-weight: bold;
       margin-top:1rem;
+    }
+  }
+  .articles{
+    .article{
+      margin-top: 2.5rem;
+    }
+    .article-title{
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .article-subtitle{
+      .name{
+        margin-right: 3rem;
+        cursor: pointer;
+        &:hover{
+          color: $clr-blue;
+        }
+      }
+      font-size: smaller;
+    }
+  }
+  .article{
+    .article-subtitle{
+      margin-bottom: 2rem;
+      .name{
+        &:hover{
+          color: $clr-blue;
+          cursor: pointer;
+        }
+      }
+    }
+    .publish-date{
+      font-size: smaller;
+      margin-top: 1rem;
     }
   }
   .nav-bar{

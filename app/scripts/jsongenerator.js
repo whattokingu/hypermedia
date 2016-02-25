@@ -88,7 +88,7 @@ var generateArticles = function(){
   articles = [];
   for(var i in articleTitle){
     var randomAuthor = authors[randInt(0, 7)];
-    console.log(randomAuthor);
+    //console.log(randomAuthor);
     var article = {
       title: articleTitle[i],
       date: randomDate(new Date('2014-12-18'), new Date(), 10, 10).toDateString(),
@@ -98,8 +98,17 @@ var generateArticles = function(){
         image: randomAuthor.image,
         occupation: randomAuthor.occupation
       },
-      href: '/article/' + i
-    }
+      href: '/article/' + i,
+      text: 'Lorem ipsum dolor sit amet, vis in molestie appareat, et regione recusabo intellegam mea. Sed salutatus conceptam ne, essent corpora ne eum. Mei quas oporteat in, vero complectitur ex eam. Ius tollit decore aliquid ea. '+
+      'Duo rebum delicata eu, an eos numquam pericula. Quo ea solet tempor, iudico scripserit ad per. Eam primis aliquando et, cu nec case mandamus iracundia, ne pro brute consul epicuri. Et his graece intellegat disputando. ' +
+      'Eam ea summo vivendo petentium, mel omnis ignota at. Et vel quis nonumy dolores, pri minim insolens prodesset te, eu eos malis docendi. Ex vis elitr saepe mandamus, id sit enim summo. Vis ex minim mollis, eu wisi animal vix, eos tation melius eu. Eos dicam verterem adipiscing in, debet constituam nec ei, id elitr eloquentiam reprehendunt eam. ' +
+      'Ea mea harum numquam consectetuer, tamquam placerat disputando in ius. Te clita facilisis vis, vim ad noster impetus rationibus. Nam et constituto contentiones consectetuer. Euismod detraxit petentium duo ei, at nam detracto laboramus disputationi. ' +
+      'Aliquip platonem urbanitas et vim, ea aeque utinam doctus has. Mei ne euismod denique repudiandae, saperet labores ne quo, ius rebum debet reprimique te. An atqui elitr solet cum, mel id homero maiorum reprehendunt. Ut verterem voluptaria has. Esse everti neglegentur eam eu. ' +
+      'Has fierent principes laboramus in, quot illud intellegam ei mea. In nam fastidii reprimique, et vim nihil forensibus eloquentiam. Te dicit verterem elaboraret sea. Cum delectus praesent cu, duo nostro consulatu ea. ' +
+      'Assum urbanitas per an, et vel platonem repudiandae, meis assum ceteros at usu. Pro te rebum possim, eu eros everti mel. Novum dissentias an has, laoreet ocurreret has ne, ne natum autem euripidis usu. Nominavi instructior eam in, mea reque praesent an. Diam civibus sapientem id eum. ' +
+      'Ut latine regione ullamcorper mea. Nam at nobis consul recusabo. Probo laudem mei ad, numquam minimum est no. Ex novum splendide dissentiet vel. ' +
+      'Recusabo adolescens ea quo, sit eu graeco perfecto referrentur. No mel scaevola adversarium, option debitis veritus an his. In est fuisset alienum, et mei virtute posidonium eloquentiam. Graeci detraxit euripidis no quo. Sit altera cotidieque ut, his ne saperet pericula. '
+    };
     articles.push(article);
   }
   console.log(JSON.stringify(articles, null, 4));

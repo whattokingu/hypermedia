@@ -18,6 +18,8 @@ var Site = React.createClass({
       case '/api' === uri: return <Api json={this.state.json}/>;
       case '/authors' === uri: return <Authors json={this.state.json}/>;
       case /\/author/.test(uri): return <Author json={this.state.json} uri={this.state.uri}/>;
+      case '/articles' === uri: return <Articles json={this.state.json}/>;
+      case /\/article.*/.test(uri): return <Article json={this.state.json}/>;
       default: return <Error/>;
     }
   }
@@ -102,6 +104,68 @@ var Author = React.createClass({
   }
 });
 
+var Articles = React.createClass({
+  generateArticle: function(json){
+    var articles =[];
+    for(var article in json.articles){
+      //console.log('art', json.articles[0]);
+      articles.push(
+        <div className="article col-md-12">
+          <div className="article-title" onClick={actions.geturi.bind(this, json.articles[article].href)}>
+            {json.articles[article].title}
+          </div>
+          <div className="article-subtitle container">
+            <div className="col-md-2">
+              <span className="key">By:</span>
+              <span className="value name" onClick={actions.geturi.bind(this, json.articles[article].author.href)}>{json.articles[article].author.name}</span>
+            </div>
+            <div className="col-md-4">
+              <span className="key">Published:</span>
+              <span className="value">{json.articles[article].date}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return articles;
+  },
+  render: function(){
+    return (
+      <div className="articles container">
+        <h2 className="col-md-12">Article List</h2>
+        <div className="article-list col-md-12">
+          {this.generateArticle(this.props.json)}
+        </div>
+        <div className="nav-bar col-md-6">
+          <h3>links</h3>
+          <div className="links">
+            {renderLinks(this.props.json._links)}
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var Article = React.createClass({
+  render: function(){
+   return (
+     <div className="article container">
+       <h2 className="col-md-12">{this.props.json.title}</h2>
+       <div className="article-subtitle col-md-12">
+         <span className="key">By:</span>
+         <span className="value name" onClick={actions.geturi.bind(this, this.props.json.author.href)}>{this.props.json.author.name}</span>
+       </div>
+       <div className="text col-md-12">{this.props.json.text}</div>
+       <div className="publish-date col-md-12">
+         <span className="key">Published:</span>
+         <span className="date">{this.props.json.date}</span>
+       </div>
+     </div>
+   );
+  }
+});
+
 var Error = React.createClass({
   render: function(){
     return (
@@ -121,7 +185,7 @@ var renderLinks = function(links){
   for(var link in links){
     if(link !== 'self' && links.hasOwnProperty(link)){
       reactLinks.push(
-        <div className={"btn btn-default " + link} onClick={actions.geturi.bind(this,links[link].href)}>{link}</div>);
+        <div key={link} className={"btn btn-default " + link} onClick={actions.geturi.bind(this,links[link].href)}>{link}</div>);
     }
   }
   return reactLinks;
